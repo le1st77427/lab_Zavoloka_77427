@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Express.js</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .student-info { background: #f4f4f4; padding: 15px; border-radius: 5px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1>Dane studenta</h1>
+    <div class="student-info" id="dane">Ładowanie danych...</div>
+
+    <script>
+        fetch('/api/hello')
+            .then(response => response.json())
+            .then(data => {
+                const div = document.getElementById('dane');
+                div.innerHTML = `
+                    <p><strong>Imię:</strong> ${data.imie}</p>
+                    <p><strong>Nazwisko:</strong> ${data.nazwisko}</p>
+                    <p><strong>Numer indeksu:</strong> ${data.indeks}</p>
+                `;
+            })
+            .catch(error => {
+                console.error('Błąd:', error);
+                document.getElementById('dane').innerText = 'Błąd pobierania danych.';
+            });
+    </script>
+</body>
+</html>
